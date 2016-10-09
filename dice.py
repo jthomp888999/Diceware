@@ -2,47 +2,40 @@
 
 from random import randint
 import sys
+# imports separate dictionary file
 import worddict as d
 
-# converts given list ('key value' format)
-# into the dictionary
-# def fileToDict(wordlist):
-#     d = {}
-#     with open(wordlist) as file:
-#         for l in file:
-#             key, sep, value = l.strip().partition(" ")
-#             key = int(key)
-#             d[key] = value
-#         return d
+def usage():
+    sys.stdout.write('Usage:\n\t' + sys.argv[0] + ' [#]\n')
 
-# just creates a random where each
+# creates a random where each
 # digit is between 1 and 6
-# joins into one number as of now
-# not using the best prng
+# joins into one number
 def randKey():
     key = [randint(1,6) for p in range(0,5)]
     keyInt = ''.join(map(str,key))
     return int(keyInt)
 
-# main loop that should print the random
+# main loop that should give the random
 # word matched from the dictionary
 # for as many words as requested
 def main():
-    sys.stdout.write('\n')
-    nOfWords = int(sys.argv[1])
-    count = 1
     try:
-        while count <= nOfWords:
-            count += 1
-            key = randKey()
-            diceDict = d.dice
-            word = diceDict[key]
-            # use sys.stdout to print all on the same line
-            sys.stdout.write(word.title())
-            sys.stdout.flush()
-    except KeyboardInterrupt:
+        sys.stdout.write('\n')
+        nOfWords = int(sys.argv[1])
+        count = 1
+        try:
+            while count <= nOfWords:
+                count += 1
+                key = randKey()
+                word = d.dice[key]
+                sys.stdout.write(word.title())
+        except KeyboardInterrupt:
+            sys.exit()
+        sys.stdout.write('\n')
+    except IndexError:
+        usage()
         sys.exit()
-    sys.stdout.write('\n')
 
 if __name__ == '__main__':
     main()
