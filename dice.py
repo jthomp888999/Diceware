@@ -7,6 +7,7 @@ import worddict as d
 
 def usage():
     sys.stdout.write('Usage:\n\t' + sys.argv[0] + ' [#]\n')
+    sys.stdout.write('\nhttp://world.std.com/~reinhold/diceware.html\n')
 
 # creates a random where each
 # digit is between 1 and 6
@@ -20,8 +21,8 @@ def randKey():
 # word matched from the dictionary
 # for as many words as requested
 def main():
+    sys.stdout.write('http://world.std.com/~reinhold/diceware.html\n\n')
     try:
-        sys.stdout.write('\n')
         nOfWords = int(sys.argv[1])
         count = 1
         try:
@@ -32,8 +33,10 @@ def main():
                 sys.stdout.write(word.title())
         except KeyboardInterrupt:
             sys.exit()
-        sys.stdout.write('\n')
     except IndexError:
+        usage()
+        sys.exit()
+    except ValueError:
         usage()
         sys.exit()
 
