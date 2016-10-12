@@ -1,5 +1,5 @@
-#!/usr/bin/env python2.7
-dice = {65536: 'vexingly',
+dice = {
+ 65536: 'vexingly',
  65541: 'viability',
  65542: 'viable',
  65543: 'vibes',
