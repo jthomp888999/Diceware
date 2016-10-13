@@ -2,11 +2,10 @@
 
 #####################################################################
 # TODO:                                                             #
-#   Create options for copying to clipboard                         #
 #   Create options for different output formats of password, i.e.:  #
 #                                      special chars                #
 #                                      replace letters with numbers #
-#   Maybe incorporate different word-list                           #
+#   Maybe incorporate different word-lists                          #
 #####################################################################
 
 from random import SystemRandom
