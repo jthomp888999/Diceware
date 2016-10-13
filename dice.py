@@ -9,7 +9,6 @@
 #####################################################################
 
 from random import SystemRandom
-from pyperclip import copy
 import sys
 import argparse
 # imports separate dictionary file
