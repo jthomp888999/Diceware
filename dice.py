@@ -14,10 +14,6 @@ import argparse
 # imports separate dictionary file
 import dice_dict as d
 
-def usage():
-    sys.stdout.write('Usage:\n\t'+sys.argv[0]+' [#]\n')
-    sys.stdout.write('\t#\tNumber of words to generate in password')
-
 # creates a random where each digit is between 1 and 6 joins into one number
 def rand_Key():
     crypt = SystemRandom()
