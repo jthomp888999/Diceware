@@ -8,6 +8,7 @@
 #####################################################################
 
 from random import SystemRandom
+from pyperclip import copy
 import sys
 import argparse
 import dice_dict as d1
@@ -29,11 +30,27 @@ def word_return(n_of_Words, d_to_use):
         word = d_to_use.dice[key]
         yield word
 
+# Takes yielded pass word and uses join to create different outputs
+def morph_pass(words, arg):
+    passlist = []
+    for word in words:
+        passlist.append(word)
+    if arg == 'hyphen':
+        result = '-'.join(passlist)
+    elif arg == 'underscore':
+        result = '_'.join(passlist)
+    elif arg == 'space':
+        result = ' '.join(passlist)
+    elif arg == '':
+        result = ''.join(passlist)
+    return result
+
+
 # Handle arguments and options
 def main():
     opt = argparse.ArgumentParser(
         description='Create A password from a virtual diceroll',
-        usage='%(prog)s [-h] -w --words [-d --dictionary]')
+        usage='%(prog)s [-h] -w --words [-d --dictionary] [-m --morph] [-c --copy]')
 
     opt.add_argument(
         '-w','--words',
@@ -49,9 +66,23 @@ def main():
         metavar='',
         default='original')
 
+    opt.add_argument(
+        '-m','--morph',
+        choices=['hyphen', 'underscore', 'space'],
+        help='Add space, hyphen, or underscore between words.',
+        default='',
+        metavar='')
+
+    opt.add_argument(
+        '-c','--copy',
+        help='Copy to clipboard instead of printing',
+        action='store_true')
+
     arg = opt.parse_args()
     n_of_Words = arg.words
     d = arg.dictionary
+    morph = arg.morph
+
 
     if d == 'eff':
         d_to_use = d1
@@ -59,12 +90,12 @@ def main():
         d_to_use = d2
 
     words = word_return(n_of_Words, d_to_use)
+    final = morph_pass(words, morph)
 
-    passlist = []
-    for word in words:
-        passlist.append(word)
-    result = ''.join(passlist)
-    sys.stdout.write(result)
+    if arg.copy:
+        copy(final)
+    else:
+        sys.stdout.write(final)
 
 if __name__ == '__main__':
     main()
