@@ -15,7 +15,7 @@ import dice_dict as d1
 import dice_dict2 as d2
 
 # creates a random where each digit is between 1 and 6 joins into one number
-def rand_Key():
+def dice_roll():
     crypt = SystemRandom()
     key = [crypt.randrange(1,7) for p in range(0,5)]
     keyInt = ''.join(map(str,key))
@@ -26,7 +26,7 @@ def word_return(n_of_Words, d_to_use):
     count = 1
     while count <= n_of_Words:
         count += 1
-        key = rand_Key()
+        key = dice_roll()
         word = d_to_use.dice[key]
         yield word
 
@@ -45,12 +45,11 @@ def morph_pass(words, arg):
         result = ''.join(passlist)
     return result
 
-
-# Handle arguments and options
-def main():
+# Handle all arguments to pass to main
+def get_args(argv=None):
     opt = argparse.ArgumentParser(
         description='Create A password from a virtual diceroll',
-        usage='%(prog)s [-h] -w --words [-d --dictionary] [-m --morph] [-c --copy]')
+        usage='\n\t%(prog)s [-h] -w --words [-d --dictionary] [-m --morph] [-c --copy]')
 
     opt.add_argument(
         '-w','--words',
@@ -77,21 +76,29 @@ def main():
         '-c','--copy',
         help='Copy to clipboard instead of printing',
         action='store_true')
+    return opt.parse_args()
 
-    arg = opt.parse_args()
+def main():
+
+    # Takes command line options as variables
+    arg = get_args()
     n_of_Words = arg.words
     d = arg.dictionary
     morph = arg.morph
 
-
+    # Decides which dictionary to use
     if d == 'eff':
         d_to_use = d1
-    if d == 'original':
+    elif d == 'original':
         d_to_use = d2
 
+    # Finds the word from a dice roll
     words = word_return(n_of_Words, d_to_use)
+
+    # Returns the result if the password is altered
     final = morph_pass(words, morph)
 
+    # If copy flag is true
     if arg.copy:
         copy(final)
     else:
