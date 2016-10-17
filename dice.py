@@ -1,14 +1,13 @@
 #!/usr/bin/env python2.7
 
-#####################################################################
-# TODO:                                                             #
-#   Create options for different output formats of password, i.e.:  #
-#                                      special chars                #
-#                                      replace letters with numbers #
-#####################################################################
+'''
+ TODO:
+   Create options for different output formats of password, i.e.:
+                                      special char
+                                      replace letters with numbers
+'''
 
 from random import SystemRandom
-from pyperclip import copy
 import sys
 import argparse
 import dice_dict as d1
@@ -78,8 +77,7 @@ def get_args(argv=None):
         action='store_true')
     return opt.parse_args()
 
-def main():
-
+if __name__ == '__main__':
     # Takes command line options as variables
     arg = get_args()
     n_of_Words = arg.words
@@ -100,9 +98,11 @@ def main():
 
     # If copy flag is true
     if arg.copy:
-        copy(final)
+        try:
+            from pyperclip import copy
+            copy(final)
+        except ImportError:
+            sys.stdout.write('Copy not available without pyperclip')
+            pass
     else:
         sys.stdout.write(final)
-
-if __name__ == '__main__':
-    main()
