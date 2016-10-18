@@ -45,7 +45,7 @@ def morph_pass(words, arg):
     return result
 
 # Handle all arguments to pass to main
-def get_args(argv=None):
+def get_args():
     opt = argparse.ArgumentParser(
         description='Create A password from a virtual diceroll',
         usage='\n\t%(prog)s [-h] -w --words [-d --dictionary] [-m --morph] [-c --copy]')
@@ -75,11 +75,12 @@ def get_args(argv=None):
         '-c','--copy',
         help='Copy to clipboard instead of printing',
         action='store_true')
-    return opt.parse_args()
+    return opt
 
 if __name__ == '__main__':
     # Takes command line options as variables
     arg = get_args()
+    arg = arg.parse_args()
     n_of_Words = arg.words
     d = arg.dictionary
     morph = arg.morph
