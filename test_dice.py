@@ -13,27 +13,9 @@ def test_word_return_generator():
     assert isinstance(is_gen, types.GeneratorType)
 
 def test_morph_pass():
-    opts = [
-    'hyphen',
-    'underscore',
-    'space',
-    ''
-       ]
-
-    words = [
-    'this',
-    'is',
-    'a',
-    'test'
-    ]
-
-    answers = [
-    'this-is-a-test',
-    'this_is_a_test',
-    'this is a test',
-    'thisisatest'
-    ]
-
+    opts = ['hyphen','underscore','space','']
+    words = ['this','is','a','test']
+    answers = ['this-is-a-test','this_is_a_test','this is a test','thisisatest']
     i = 0
     while i < 4:
         arg = opts[i]
