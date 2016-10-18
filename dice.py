@@ -10,8 +10,8 @@
 from random import SystemRandom
 import sys
 import argparse
-import dice_dict as d1
-import dice_dict2 as d2
+import dicts.dice_dict as d1
+import dicts.dice_dict2 as d2
 
 # creates a random where each digit is between 1 and 6 joins into one number
 def dice_roll():
@@ -78,6 +78,7 @@ def get_args():
     return opt
 
 if __name__ == '__main__':
+
     # Takes command line options as variables
     arg = get_args()
     arg = arg.parse_args()

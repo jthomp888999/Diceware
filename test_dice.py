@@ -4,8 +4,8 @@ TODO:
 '''
 
 from dice import *
-import dice_dict as d1
-import dice_dict2 as d2
+import dicts.dice_dict as d1
+import dicts.dice_dict2 as d2
 import types
 
 def test_dicts():
