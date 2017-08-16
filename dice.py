@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
 
-'''
- TODO:
-   Create options for different output formats of password, i.e.:
-                                      special char
-                                      replace letters with numbers
-'''
-
 from random import SystemRandom
 import sys
 import argparse
@@ -16,8 +9,8 @@ import dicts.dice_dict2 as d2
 # creates a random where each digit is between 1 and 6 joins into one number
 def dice_roll():
     crypt = SystemRandom()
-    key = [crypt.randrange(1,7) for p in range(0,5)]
-    keyInt = ''.join(map(str,key))
+    key = [crypt.randrange(1, 7) for p in range(0, 5)]
+    keyInt = ''.join(map(str, key))
     return int(keyInt)
 
 # matches and yields generated words
@@ -34,14 +27,7 @@ def morph_pass(words, arg):
     passlist = []
     for word in words:
         passlist.append(word)
-    if arg == 'hyphen':
-        result = '-'.join(passlist)
-    elif arg == 'underscore':
-        result = '_'.join(passlist)
-    elif arg == 'space':
-        result = ' '.join(passlist)
-    elif arg == '':
-        result = ''.join(passlist)
+        result = arg.join(passlist)
     return result
 
 # Handle all arguments to pass to main
@@ -53,26 +39,21 @@ def get_args():
         'num',
         type=int,
         help='Number of words to create',
-        metavar='')
+        default=6)
 
     opt.add_argument(
-        '-d','--dictionary',
+        '-d', '--dictionary',
         choices=['eff', 'original'],
         help='Dictionary to use, eff or original',
         metavar='',
         default='original')
 
     opt.add_argument(
-        '-m','--morph',
-        choices=['hyphen', 'underscore', 'space'],
-        help='Add space, hyphen, or underscore between words.',
+        '-m', '--morph',
+        help='Choose a character to seperate each word',
         default='',
         metavar='')
 
-    opt.add_argument(
-        '-c','--copy',
-        help='Copy to clipboard instead of printing',
-        action='store_true')
     return opt
 
 if __name__ == '__main__':
@@ -94,14 +75,4 @@ if __name__ == '__main__':
 
     # Returns the result if the password is altered
     final = morph_pass(words, morph)
-
-    # If copy flag is true
-    if arg.copy:
-        try:
-            from pyperclip import copy
-            copy(final)
-        except ImportError:
-            sys.stdout.write('Copy not available without pyperclip')
-            pass
-    else:
-        sys.stdout.write(final)
+    sys.stdout.write(final + '\n')
