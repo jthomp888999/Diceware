@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 from random import SystemRandom
 import sys
@@ -35,20 +35,17 @@ def get_args():
     opt = argparse.ArgumentParser(
         description='Create A password from a virtual diceroll')
 
-    opt.add_argument(
-        'num',
+    opt.add_argument('num',
         type=int,
         help='Number of words to create')
-        
-    opt.add_argument(
-        '-d', '--dictionary',
+
+    opt.add_argument('-d', '--dictionary',
         choices=['eff', 'original'],
         help='Dictionary to use, eff or original',
         metavar='',
         default='original')
 
-    opt.add_argument(
-        '-m', '--morph',
+    opt.add_argument('-m', '--morph',
         help='Choose a character to seperate each word',
         default='',
         metavar='')
@@ -57,8 +54,7 @@ def get_args():
 
 if __name__ == '__main__':
     # Takes command line options as variables
-    arg = get_args()
-    arg = arg.parse_args()
+    arg = get_args().parse_args()
     n_of_Words = arg.num
     d = arg.dictionary
     morph = arg.morph
