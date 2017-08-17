@@ -38,9 +38,8 @@ def get_args():
     opt.add_argument(
         'num',
         type=int,
-        help='Number of words to create',
-        default=6)
-
+        help='Number of words to create')
+        
     opt.add_argument(
         '-d', '--dictionary',
         choices=['eff', 'original'],
