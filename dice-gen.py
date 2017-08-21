@@ -1,8 +1,15 @@
 #!/usr/bin/env python
-
-from random import SystemRandom
 import sys
 import argparse
+
+# Try to import secrets if available
+try:
+    from secrets import SystemRandom
+except ImportError:
+    from random import SystemRandom
+    sys.stdout.write("Using 'random' instead of 'secrets'.\n" + '-'*35 + '\n\n')
+
+# Possible dictionaries to use
 import dicts.dice_dict as d1
 import dicts.dice_dict2 as d2
 
@@ -37,7 +44,9 @@ def get_args():
 
     opt.add_argument('num',
         type=int,
-        help='Number of words to create')
+        nargs='?',
+        default=6,
+        help='Number of words to create, default value is 6')
 
     opt.add_argument('-d', '--dictionary',
         choices=['eff', 'original'],
