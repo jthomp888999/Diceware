@@ -5,6 +5,7 @@ import argparse
 # Try to import secrets if available
 try:
     from secrets import SystemRandom
+    sys.stdout.write("Here's a password:\n" + '-'*17+'\n\n')
 except ImportError:
     from random import SystemRandom
     sys.stdout.write("Using 'random' instead of 'secrets'.\n" + '-'*35 + '\n\n')
@@ -60,8 +61,7 @@ def get_args():
         metavar='')
 
     return opt
-
-if __name__ == '__main__':
+def main():
     # Takes command line options as variables
     arg = get_args().parse_args()
     n_of_Words = arg.num
@@ -80,3 +80,7 @@ if __name__ == '__main__':
     # Returns the result if the password is altered
     final = morph_pass(words, morph)
     sys.stdout.write(final + '\n')
+
+
+if __name__ == '__main__':
+    main()
